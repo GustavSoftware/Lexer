@@ -21,8 +21,8 @@
 namespace Gustav\Lexer;
 
 /**
- * This class is used for scanning of GQL strings for given tokens. Please note,
- * that this class is a fork of Doctrine's Lexer for DQL.
+ * This class is used for scanning and splitting of string into tokens. Please
+ * note, that this class is a fork of Doctrine's Lexer for DQL.
  *
  * @author   Chris Köcher <ckone@fieselschweif.de>
  * @link     http://gustav.fieselschweif.de
@@ -145,7 +145,7 @@ abstract class ALexer {
         $matches = \preg_split(self::$_regex, $this->_input, -1, $flags);
 
         foreach($matches as $match) {
-            // Must remain before 'value' assignment since it can change content
+            // Must remain before construction of Token since it can change
             $type = $this->_getType($match[0]);
 
             $this->_tokens[] = new Token($type, $match[0], $match[1]);
