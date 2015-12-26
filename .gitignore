@@ -1,0 +1,9 @@
+#ignore Eclipse project files
+.project
+.buildpath
+.settings
+vendor/*
+composer.lock
+/vendor/
+*.kdev4
+/.idea/
