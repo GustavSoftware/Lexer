@@ -24,12 +24,11 @@ namespace Gustav\Lexer;
  * This class is used for scanning and splitting of string into tokens. Please
  * note, that this class is a fork of Doctrine's Lexer for DQL.
  *
- * @author   Chris Köcher <ckone@fieselschweif.de>
- * @link     http://gustav.fieselschweif.de
- * @package  Gustav.Lexer
- * @since    1.0
- * @abstract
- * @see      https://github.com/doctrine/lexer/blob/master/lib/Doctrine/Common/Lexer/AbstractLexer.php
+ * @author  Chris Köcher <ckone@fieselschweif.de>
+ * @link    http://gustav.fieselschweif.de
+ * @package Gustav.Lexer
+ * @since   1.0
+ * @see     https://github.com/doctrine/lexer/blob/master/lib/Doctrine/Common/Lexer/AbstractLexer.php
  */
 abstract class ALexer {
     /**
@@ -45,10 +44,9 @@ abstract class ALexer {
      * The regular expression for tokenizing the input string. This property is
      * only used as cache of this regex.
      *
-     * @var       string
-     * @staticvar
+     * @var string
      */
-    private static $_regex = null;
+    static private $_regex = null;
 
     /**
      * Lexer original input string.
@@ -77,8 +75,8 @@ abstract class ALexer {
      *
      * @param string $input The input to be tokenized
      */
-    public function __construct($input) {
-        $this->_input = (string) $input;
+    public function __construct(string $input) {
+        $this->_input = $input;
         $this->_scan();
     }
 
@@ -87,7 +85,7 @@ abstract class ALexer {
      *
      * @return \Gustav\Lexer\ALexer This object
      */
-    public function reset() {
+    public function reset(): ALexer {
         $this->_position = 0;
         return $this;
     }
@@ -99,15 +97,15 @@ abstract class ALexer {
      *                                        scanner
      * @return \Gustav\Lexer\ALexer           This object
      */
-    public function resetPosition($position = 0) {
-        $this->_position = (int) $position;
+    public function resetPosition(int $position = 0): ALexer {
+        $this->_position = $position;
         return $this;
     }
 
     /**
      * Returns the current token on input.
      *
-     * @return \Gustav\Lexer\Token The current token
+     * @return \Gustav\Lexer\Token|null The current token
      */
     public function getToken() {
         if(isset($this->_tokens[$this->_position])) {
@@ -122,7 +120,7 @@ abstract class ALexer {
      *
      * @return boolean false, if there's no more token to read, otherwise true
      */
-    public function moveNext() {
+    public function moveNext(): bool {
         $this->_position++;
         return isset($this->_tokens[$this->_position]);
     }
@@ -141,7 +139,7 @@ abstract class ALexer {
         }
 
         $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE |
-                PREG_SPLIT_OFFSET_CAPTURE;
+            PREG_SPLIT_OFFSET_CAPTURE;
         $matches = \preg_split(self::$_regex, $this->_input, -1, $flags);
 
         foreach($matches as $match) {
@@ -152,8 +150,11 @@ abstract class ALexer {
         }
 
         //adds another token signalizing end of the query
-        $this->_tokens[] = new Token(self::END_OF_STRING, "",
-                \mb_strlen($this->_input));
+        $this->_tokens[] = new Token(
+            self::END_OF_STRING,
+            "",
+            \mb_strlen($this->_input)
+        );
     }
 
     /**
@@ -161,25 +162,23 @@ abstract class ALexer {
      *
      * @return string The modifiers
      */
-    protected function _getModifiers() {
+    protected function _getModifiers(): string {
         return 'i';
     }
 
     /**
      * Returns the lexical catchable patterns.
      *
-     * @return   array The patters
-     * @abstract
+     * @return array The patters
      */
-    abstract protected function _getCatchablePatterns();
+    abstract protected function _getCatchablePatterns(): array;
 
     /**
      * Lexical non-catchable patterns.
      *
-     * @return   array The patterns
-     * @abstract
+     * @return array The patterns
      */
-    abstract protected function _getNonCatchablePatterns();
+    abstract protected function _getNonCatchablePatterns(): array;
 
     /**
      * Retrieve token type. Also processes the token value if necessary.
@@ -188,5 +187,5 @@ abstract class ALexer {
      * @return   integer        The matching token type
      * @abstract
      */
-    abstract protected function _getType(&$value);
+    abstract protected function _getType(&$value): int;
 }

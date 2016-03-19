@@ -58,10 +58,10 @@ class Token {
      * @param string  $value    The value
      * @param integer $position The position in query string
      */
-    public function __construct($type, $value, $position) {
-        $this->_type = (int) $type;
-        $this->_value = (string) $value;
-        $this->_position = (int) $position;
+    public function __construct(int $type, string $value, int $position) {
+        $this->_type = $type;
+        $this->_value = $value;
+        $this->_position = $position;
     }
 
     /**
@@ -69,7 +69,7 @@ class Token {
      *
      * @return integer The type
      */
-    public function getType() {
+    public function getType(): int {
         return $this->_type;
     }
 
@@ -78,7 +78,7 @@ class Token {
      *
      * @return string The value
      */
-    public function getValue() {
+    public function getValue(): string {
         return $this->_value;
     }
 
@@ -87,7 +87,7 @@ class Token {
      *
      * @return integer The position in query string
      */
-    public function getPosition() {
+    public function getPosition(): int {
         return $this->_position;
     }
 }
