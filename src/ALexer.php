@@ -2,7 +2,7 @@
 
 /*
  * Gustav Lexer - A simple lexer component for parsing strings.
- * Copyright (C) 2014-2016  Gustav Software
+ * Copyright (C) 2015-2016  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

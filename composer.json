@@ -22,8 +22,8 @@
     "phpunit/phpunit": "~4.4"
   },
   "autoload": {
-    "psr-0": {
-      "Gustav\\Lexer\\": "libs/"
+    "psr-4": {
+      "Gustav\\Lexer\\": "src/"
     }
   },
   "autoload-dev": {
