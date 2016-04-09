@@ -44,7 +44,7 @@ abstract class ALexer
      * The regular expression for tokenizing the input string. This property is
      * only used as cache of this regex.
      *
-     * @var string
+     * @var string|null
      */
     private static $_regex = null;
 
