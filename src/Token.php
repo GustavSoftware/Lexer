@@ -2,7 +2,7 @@
 
 /*
  * Gustav Lexer - A simple lexer component for parsing strings.
- * Copyright (C) 2015-2016  Gustav Software
+ * Copyright (C) since 2015  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@ namespace Gustav\Lexer;
 /**
  * This class represents tokens found by the lexer.
  *
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Lexer
- * @since   1.0
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
  */
-class Token {
+class Token
+{
     /**
      * The type of this token. For example in GQL parser in Gustav ORM this is
      * one of the constants in class \Gustav\Orm\Query\Parser\Types.
@@ -54,11 +54,15 @@ class Token {
     /**
      * Constructor of this class. Initializes the values of the properties.
      *
-     * @param integer $type     The type
-     * @param string  $value    The value
-     * @param integer $position The position in query string
+     * @param integer $type
+     *   The type
+     * @param string $value
+     *   The value
+     * @param integer $position
+     *   The position in query string
      */
-    public function __construct(int $type, string $value, int $position) {
+    public function __construct(int $type, string $value, int $position) 
+    {
         $this->_type = $type;
         $this->_value = $value;
         $this->_position = $position;
@@ -67,27 +71,33 @@ class Token {
     /**
      * Returns the type of this token.
      *
-     * @return integer The type
+     * @return integer
+     *   The type
      */
-    public function getType(): int {
+    public function getType(): int 
+    {
         return $this->_type;
     }
 
     /**
      * Returns the value of this token.
      *
-     * @return string The value
+     * @return string
+     *   he value
      */
-    public function getValue(): string {
+    public function getValue(): string
+    {
         return $this->_value;
     }
 
     /**
      * Returns the position of this token in query string.
      *
-     * @return integer The position in query string
+     * @return integer
+     *   The position in query string
      */
-    public function getPosition(): int {
+    public function getPosition(): int
+    {
         return $this->_position;
     }
 }

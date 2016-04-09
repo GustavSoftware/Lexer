@@ -2,7 +2,7 @@
 
 /*
  * Gustav Lexer - A simple lexer component for parsing strings.
- * Copyright (C) 2015-2016  Gustav Software
+ * Copyright (C) since 2015  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,13 +24,13 @@ namespace Gustav\Lexer;
  * This class is used for scanning and splitting of string into tokens. Please
  * note, that this class is a fork of Doctrine's Lexer for DQL.
  *
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Lexer
- * @since   1.0
- * @see     https://github.com/doctrine/lexer/blob/master/lib/Doctrine/Common/Lexer/AbstractLexer.php
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
+ * @see    https://github.com/doctrine/lexer/blob/master/lib/Doctrine/Common/Lexer/AbstractLexer.php
  */
-abstract class ALexer {
+abstract class ALexer
+{
     /**
      * This constant represents the default token type that signalizes the end
      * of the parsed string. This token type is needed in top-down parsers to
@@ -46,7 +46,7 @@ abstract class ALexer {
      *
      * @var string
      */
-    static private $_regex = null;
+    private static $_regex = null;
 
     /**
      * Lexer original input string.
@@ -60,7 +60,7 @@ abstract class ALexer {
      *
      * @var \Gustav\Lexer\Token[]
      */
-    private $_tokens = array();
+    private $_tokens = [];
 
     /**
      * Current lexer position in input string.
@@ -73,9 +73,11 @@ abstract class ALexer {
      * Constructor of this class. Sets the input data to be tokenized and starts
      * scanning process.
      *
-     * @param string $input The input to be tokenized
+     * @param string $input
+     *   The input to be tokenized
      */
-    public function __construct(string $input) {
+    public function __construct(string $input)
+    {
         $this->_input = $input;
         $this->_scan();
     }
@@ -83,9 +85,11 @@ abstract class ALexer {
     /**
      * Resets the lexer.
      *
-     * @return \Gustav\Lexer\ALexer This object
+     * @return \Gustav\Lexer\ALexer
+     *   This object
      */
-    public function reset(): ALexer {
+    public function reset(): self
+    {
         $this->_position = 0;
         return $this;
     }
@@ -93,11 +97,13 @@ abstract class ALexer {
     /**
      * Resets the lexer position on the input to the given position.
      *
-     * @param  integer              $position Position to place the lexical
-     *                                        scanner
-     * @return \Gustav\Lexer\ALexer           This object
+     * @param integer $position
+     *   Position to place the lexical scanner
+     * @return \Gustav\Lexer\ALexer
+     *   This object
      */
-    public function resetPosition(int $position = 0): ALexer {
+    public function resetPosition(int $position = 0): self
+    {
         $this->_position = $position;
         return $this;
     }
@@ -105,9 +111,11 @@ abstract class ALexer {
     /**
      * Returns the current token on input.
      *
-     * @return \Gustav\Lexer\Token|null The current token
+     * @return \Gustav\Lexer\Token|null
+     *   The current token
      */
-    public function getToken() {
+    public function getToken()
+    {
         if(isset($this->_tokens[$this->_position])) {
             return $this->_tokens[$this->_position];
         } else {
@@ -118,9 +126,11 @@ abstract class ALexer {
     /**
      * Moves to the next token in the input string.
      *
-     * @return boolean false, if there's no more token to read, otherwise true
+     * @return boolean
+     *   false, if there's no more token to read, otherwise true
      */
-    public function moveNext(): bool {
+    public function moveNext(): bool
+    {
         $this->_position++;
         return isset($this->_tokens[$this->_position]);
     }
@@ -128,7 +138,8 @@ abstract class ALexer {
     /**
      * Scans the input string for tokens.
      */
-    protected function _scan() {
+    protected function _scan()
+    {
         if(self::$_regex === null) {
             self::$_regex = \sprintf(
                 '/(%s)|%s/%s',
@@ -138,7 +149,8 @@ abstract class ALexer {
             );
         }
 
-        $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE |
+        $flags = PREG_SPLIT_NO_EMPTY |
+            PREG_SPLIT_DELIM_CAPTURE |
             PREG_SPLIT_OFFSET_CAPTURE;
         $matches = \preg_split(self::$_regex, $this->_input, -1, $flags);
 
@@ -160,32 +172,37 @@ abstract class ALexer {
     /**
      * Returns the regex modifiers.
      *
-     * @return string The modifiers
+     * @return string
+     *   The modifiers
      */
-    protected function _getModifiers(): string {
+    protected function _getModifiers(): string
+    {
         return 'i';
     }
 
     /**
      * Returns the lexical catchable patterns.
      *
-     * @return array The patters
+     * @return array
+     *   The patters
      */
     abstract protected function _getCatchablePatterns(): array;
 
     /**
      * Lexical non-catchable patterns.
      *
-     * @return array The patterns
+     * @return array
+     *   The patterns
      */
     abstract protected function _getNonCatchablePatterns(): array;
 
     /**
      * Retrieve token type. Also processes the token value if necessary.
      *
-     * @param    mixed   $value The token value
-     * @return   integer        The matching token type
-     * @abstract
+     * @param mixed $value
+     *   The token value
+     * @return integer
+     *   The matching token type
      */
     abstract protected function _getType(&$value): int;
 }
