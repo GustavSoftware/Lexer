@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Gustav Lexer - A simple lexer component for parsing strings.
  * Copyright (C) since 2015  Gustav Software
  *
