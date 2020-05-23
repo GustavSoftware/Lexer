@@ -32,32 +32,32 @@ class Token
      * The type of this token. For example in GQL parser in Gustav ORM this is
      * one of the constants in class \Gustav\Orm\Query\Parser\Types.
      *
-     * @var integer
+     * @var int
      */
-    private $_type;
+    private int $_type;
 
     /**
      * The value of this token.
      *
      * @var string
      */
-    private $_value;
+    private string $_value;
 
     /**
      * The position of this token in the query string.
      *
-     * @var integer
+     * @var int
      */
-    private $_position;
+    private int $_position;
 
     /**
      * Constructor of this class. Initializes the values of the properties.
      *
-     * @param integer $type
+     * @param int $type
      *   The type
      * @param string $value
      *   The value
-     * @param integer $position
+     * @param int $position
      *   The position in query string
      */
     public function __construct(int $type, string $value, int $position) 
@@ -70,7 +70,7 @@ class Token
     /**
      * Returns the type of this token.
      *
-     * @return integer
+     * @return int
      *   The type
      */
     public function getType(): int 
@@ -92,7 +92,7 @@ class Token
     /**
      * Returns the position of this token in query string.
      *
-     * @return integer
+     * @return int
      *   The position in query string
      */
     public function getPosition(): int

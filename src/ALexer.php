@@ -35,9 +35,9 @@ abstract class ALexer
      * of the parsed string. This token type is needed in top-down parsers to
      * parse the whole string.
      *
-     * @var integer
+     * @const int
      */
-    const END_OF_STRING = 0;
+    public const END_OF_STRING = 0;
 
     /**
      * The regular expression for tokenizing the input string. This property is
@@ -45,28 +45,28 @@ abstract class ALexer
      *
      * @var string|null
      */
-    private static $_regex = null;
+    private static ?string $_regex = null;
 
     /**
      * Lexer original input string.
      *
      * @var string
      */
-    private $_input;
+    private string $_input;
 
     /**
      * Array of scanned tokens.
      *
-     * @var \Gustav\Lexer\Token[]
+     * @var Token[]
      */
-    private $_tokens = [];
+    private array $_tokens = [];
 
     /**
      * Current lexer position in input string.
      *
-     * @var integer
+     * @var int
      */
-    private $_position = 0;
+    private int $_position = 0;
 
     /**
      * Constructor of this class. Sets the input data to be tokenized and starts
@@ -84,7 +84,7 @@ abstract class ALexer
     /**
      * Resets the lexer.
      *
-     * @return \Gustav\Lexer\ALexer
+     * @return ALexer
      *   This object
      */
     public function reset(): self
@@ -96,9 +96,9 @@ abstract class ALexer
     /**
      * Resets the lexer position on the input to the given position.
      *
-     * @param integer $position
+     * @param int $position
      *   Position to place the lexical scanner
-     * @return \Gustav\Lexer\ALexer
+     * @return ALexer
      *   This object
      */
     public function resetPosition(int $position = 0): self
@@ -110,10 +110,10 @@ abstract class ALexer
     /**
      * Returns the current token on input.
      *
-     * @return \Gustav\Lexer\Token|null
+     * @return Token|null
      *   The current token
      */
-    public function getToken()
+    public function getToken(): ?Token
     {
         if(isset($this->_tokens[$this->_position])) {
             return $this->_tokens[$this->_position];
@@ -125,7 +125,7 @@ abstract class ALexer
     /**
      * Moves to the next token in the input string.
      *
-     * @return boolean
+     * @return bool
      *   false, if there's no more token to read, otherwise true
      */
     public function moveNext(): bool
@@ -137,7 +137,7 @@ abstract class ALexer
     /**
      * Scans the input string for tokens.
      */
-    protected function _scan()
+    protected function _scan(): void
     {
         if(self::$_regex === null) {
             self::$_regex = \sprintf(
@@ -151,7 +151,7 @@ abstract class ALexer
         $flags = PREG_SPLIT_NO_EMPTY |
             PREG_SPLIT_DELIM_CAPTURE |
             PREG_SPLIT_OFFSET_CAPTURE;
-        $matches = \preg_split(self::$_regex, $this->_input, -1, $flags);
+        $matches = preg_split(self::$_regex, $this->_input, -1, $flags);
 
         foreach($matches as $match) {
             // Must remain before construction of Token since it can change
@@ -164,7 +164,7 @@ abstract class ALexer
         $this->_tokens[] = new Token(
             self::END_OF_STRING,
             "",
-            \mb_strlen($this->_input)
+            mb_strlen($this->_input)
         );
     }
 
