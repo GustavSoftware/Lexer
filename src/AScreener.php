@@ -35,28 +35,28 @@ abstract class AScreener
      *
      * @var string
      */
-    private string $_string;
+    protected string $_string;
 
     /**
      * The lexer, that is used by this screener.
      *
      * @var ALexer
      */
-    private ALexer $_lexer;
+    protected ALexer $_lexer;
 
     /**
      * Current lexer position in input string.
      *
      * @var int
      */
-    private int $_position = 0;
+    protected int $_position = 0;
 
     /**
      * Current peek of current lexer position.
      *
      * @var integer
      */
-    private int $_peek = 1;
+    protected int $_peek = 1;
 
     /**
      * Constructor of this class.
