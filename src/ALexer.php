@@ -108,6 +108,17 @@ abstract class ALexer
     }
 
     /**
+     * Returns the position of the current token in the token stream.
+     *
+     * @return int
+     *   The current position
+     */
+    public function getPosition(): int
+    {
+        return $this->_position;
+    }
+
+    /**
      * Returns the current token on input.
      *
      * @return Token|null
